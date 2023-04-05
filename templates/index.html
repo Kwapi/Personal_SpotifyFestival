@@ -1,0 +1,27 @@
+{% if authenticated %}
+    <h1>You're authorised</h1>>
+    <h2>Choose artists for the playlist</h2>
+
+    <form action="/chooseArtists" method="POST">
+        <ul>
+        {% for artist in artistsList %}
+            <li style="list-style-type: none">
+                <input type="checkbox" name="chosenArtists[]" value="{{artist}}" id="{{artist}}" checked >
+                <label for="{{artist}}">{{ artist }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+    
+        <input type="submit" value="Submit">
+    </form>
+    
+    
+
+
+{% else %}
+<h1> You're not authorised, log in with Spotify</h1>
+    <form action="/authorise" method="POST">
+        <input type="submit" value="Authorise">
+    </form>
+{% endif %}
+

@@ -1,37 +1,55 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template, redirect, session, url_for
 
 from artists import getOpenerArtists
-from my_spotify import getTopTracksFromArtistList
+from my_spotify import createPlaylistFromTopTracks, getTopTracksFromArtistList
 
 # __name__ is a special variable that is set to the name of the module in which it is used.
 app = Flask(__name__)
-
-
-# start site
-@app.route('/')
-def index():
-    return """
-        <h1>Search for an artist</h1>
-        <form method="POST" action="/search">
-            <input type="text" name="query" placeholder="Search for an artist...">
-            <input type="submit" value="Search">
-        </form>
-    """
+app.secret_key = 'H@McQfThWmZq4t7w!z%C*F-JaNdRgUkX'
 
 
 artistsList = getOpenerArtists()
 
-topTracks = getTopTracksFromArtistList(artistsList)
 
-@app.route('/search', methods=['POST'])
+from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+
+
+# set up the SpotifyOAuth object with your app's client ID, client secret, and callback URL
+
+sp_oauth = SpotifyOAuth(client_id='707777b94d81455eb24e4e90a99a7a8c', client_secret='7ab543121984470a86d80e8a0685e181', redirect_uri='http://localhost:5000/callback', scope='user-library-read,playlist-modify-private,playlist-modify-public')
+
+@app.route('/')
+def index():
+    # redirect the user to the Spotify authorization page
+    auth_url = sp_oauth.get_authorize_url()
+    return redirect(auth_url)
+
+@app.route('/callback')
+def callback():
+    # exchange the authorization code for an access token
+    code = request.args.get('code')
+    token_info = sp_oauth.get_access_token(code)
+    access_token = token_info['access_token']
+    session['access_token'] = access_token
+    
+    # redirect the user to the home page
+    return redirect(url_for('artistList'))
+
+
+# start site
+@app.route('/artistList')
+def artistList():
+    return render_template('index.html',  artistsList = artistsList, authenticated=True)
+
+
+@app.route('/chooseArtists', methods=['POST'])
 def search():
-    # query = request.form['query']
+    chosenArtists = request.form.getlist('chosenArtists[]')
+    cleaned_list = [string.replace('\r', '').replace('\n', '') for string in chosenArtists]
 
-    # resultsSearch = sp.search(query, type='artist')
-    # artist = resultsSearch['artists']['items'][0]
-    # results = sp.artist_top_tracks(artist_id=artist['id'], country='GB')
-
-
+    topTracks = getTopTracksFromArtistList(chosenArtists)
+    createPlaylistFromTopTracks(topTracks)
     return render_template('results.html', topTracks = topTracks)
 
 
