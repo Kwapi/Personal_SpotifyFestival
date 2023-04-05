@@ -1,5 +1,10 @@
 <ul>
-    {% for track in results %}
-        <li>{{ track['name'] }} by {{ track['artists'][0]['name'] }}</li>
+    {% for track in topTracks %}
+        <li>
+        {% for artist in track.artists: %}
+        {{artist.name}}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+         - {{ track.name }}
+    </li>
     {% endfor %}
 </ul>
