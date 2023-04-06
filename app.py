@@ -19,7 +19,7 @@ from spotipy.oauth2 import SpotifyOAuth
 # set up the SpotifyOAuth object with your app's client ID, client secret, and callback URL
 client_id = '707777b94d81455eb24e4e90a99a7a8c'
 client_secret='7ab543121984470a86d80e8a0685e181'
-heroku_url = 'https://opener-spotify.herokuapp.com'
+heroku_url = 'https://opener-playlist.herokuapp.com'
 local_url = 'http://localhost:5000'
 
 
