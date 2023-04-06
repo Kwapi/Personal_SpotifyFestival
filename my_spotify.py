@@ -3,6 +3,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from spotipy.oauth2 import SpotifyOAuth
 
 import spotipy
+
     
 
 
@@ -15,7 +16,7 @@ def getTopTracksFromArtistList(artistList):
     # BUG: some tracks belong to wrong artists? For example wtf is Elinaura?
     client_id = '707777b94d81455eb24e4e90a99a7a8c'
     client_secret = '7ab543121984470a86d80e8a0685e181'
-    redirect_uri = 'http://localhost/callback'
+
     client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 

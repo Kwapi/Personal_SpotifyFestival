@@ -17,11 +17,27 @@ from spotipy.oauth2 import SpotifyOAuth
 
 
 # set up the SpotifyOAuth object with your app's client ID, client secret, and callback URL
+client_id = '707777b94d81455eb24e4e90a99a7a8c'
+client_secret='7ab543121984470a86d80e8a0685e181'
+heroku_url = 'https://opener-spotify.herokuapp.com'
+local_url = 'http://localhost:5000'
 
-sp_oauth = SpotifyOAuth(client_id='707777b94d81455eb24e4e90a99a7a8c', client_secret='7ab543121984470a86d80e8a0685e181', redirect_uri='http://localhost:5000/callback', scope='user-library-read,playlist-modify-private,playlist-modify-public')
+
+def get_base_url():
+    if os.environ.get('APP_ENV') == 'production':
+        return heroku_url
+    else:
+        return local_url
+
+
+
+scope='user-library-read,playlist-modify-private,playlist-modify-public'
+
+sp_oauth = SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=get_base_url()+'/callback', scope=scope)
 
 @app.route('/')
 def index():
+   
     # redirect the user to the Spotify authorization page
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
@@ -58,6 +74,9 @@ def search():
 # check that this module is being run directly and not imported
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
+    
+  
+
 
 
