@@ -57,24 +57,6 @@ def getTopTracksFromArtistList(artistList):
 
     return allTopTracks
 
-
-
-# def authoriseSpotify():
-    client_id = '707777b94d81455eb24e4e90a99a7a8c'
-    client_secret = '7ab543121984470a86d80e8a0685e181'
-    redirect_uri = 'http://localhost:5000/'
-    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-    
-    username ='127342331'
-
-    # Authenticate the client using the authorization code flow
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
-                                                client_secret=client_secret,
-                                                redirect_uri=redirect_uri,
-                                                scope='playlist-modify-private,playlist-modify-public',
-                                                username=username))
-    
     
     
 def createPlaylistFromTopTracks(topTracks):
