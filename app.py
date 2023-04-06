@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, render_template, redirect, session, url_for
 
 from artists import getOpenerArtists
@@ -17,7 +18,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 # set up the SpotifyOAuth object with your app's client ID, client secret, and callback URL
 
-sp_oauth = SpotifyOAuth(client_id='707777b94d81455eb24e4e90a99a7a8c', client_secret='7ab543121984470a86d80e8a0685e181', redirect_uri='https://opener-playlist.herokuapp.com/', scope='user-library-read,playlist-modify-private,playlist-modify-public')
+sp_oauth = SpotifyOAuth(client_id='707777b94d81455eb24e4e90a99a7a8c', client_secret='7ab543121984470a86d80e8a0685e181', redirect_uri='http://localhost:5000/callback', scope='user-library-read,playlist-modify-private,playlist-modify-public')
 
 @app.route('/')
 def index():
@@ -56,6 +57,7 @@ def search():
 
 # check that this module is being run directly and not imported
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
