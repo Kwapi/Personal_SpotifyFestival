@@ -1,21 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <body>
+
     <h2>Choose artists for the playlist</h2>
 
     <form action="/chooseArtists" method="POST" id="chooseArtists">
-        <ul>
+        <div class="grid">
+        
         {% for artist in artistsList %}
-            <li style="list-style-type: none">
-                <input type="checkbox" name="chosenArtists[]" value="{{artist}}" id="{{artist}}" checked >
-                <label for="{{artist}}">{{ artist }}</label>
-            </li>
+        <div class="square">
+            <input type="checkbox" name="chosenArtists[]" value="{{artist.name}}" id="{{artist.name}}" checked >
+
+               
+                <label for="{{artist}}">
+                    <a href="#"><img src="{{ artist.image }}" alt="{{ artist.name }}"></a>
+                    {{ artist.name }}
+                </label>
+            </div>
         {% endfor %}
-    </ul>
+        </div>
         <input type="button" id="select-deselect" value="Select/Deselect All">
         <br>
         <input type="submit" value="Submit">
     </form>
     
 
-    
-<!-- {% block scripts %}
+
+{% block scripts %}
   <script src="{{ url_for('static', filename='js/select-deselect.js') }}"></script>
-{% endblock %} -->
+{% endblock %} 
+
+  </body>
+</html>
+    
+    
+  
