@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, render_template, redirect, session, url_for
 
 from artists import getOpenerArtists
-from my_spotify import createPlaylistFromTopTracks, getTopTracksFromArtistList
+from my_spotify import createPlaylistFromTopTracks, addImagestoArtists, getTopTracksFromArtistList
 
 # __name__ is a special variable that is set to the name of the module in which it is used.
 app = Flask(__name__)
@@ -10,6 +10,7 @@ app.secret_key = 'H@McQfThWmZq4t7w!z%C*F-JaNdRgUkX'
 
 
 artistsList = getOpenerArtists()
+artistsList = addImagestoArtists(artistsList)
 
 
 from spotipy.oauth2 import SpotifyClientCredentials

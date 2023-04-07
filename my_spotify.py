@@ -86,3 +86,20 @@ def createPlaylistFromTopTracks(topTracks):
     # track_uris = ['spotify:track:7BAJpEXmYXQJ0wB1fLkS5k', 'spotify:track:2VlcoYEtFyoKW6YETFUW6B']
     for chunk in chunks:
         sp.user_playlist_add_tracks(user=username, playlist_id=playlist_id, tracks=chunk)
+
+
+def addImagestoArtists(artists):
+    client_id = '707777b94d81455eb24e4e90a99a7a8c'
+    client_secret = '7ab543121984470a86d80e8a0685e181'
+
+    client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+
+    data = []
+    for artist in artists:
+        result = sp.search(artist, limit=1, type='artist')
+        if result['artists']['items']:
+            item = result['artists']['items'][0]
+            data.append({'name': item['name'], 'image': item['images'][0]['url']})
+    return data

@@ -1,0 +1,19 @@
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    flex-basis: 25%;
+    padding: 10px;
+}
+
+.square img {
+    width: 100%;
+    height: auto;
+}
+
+.square p {
+    margin: 0;
+    text-align: center;
+}
