@@ -65,10 +65,10 @@ def artistList():
 def search():
     chosenArtists = request.form.getlist('chosenArtists[]')
     cleaned_list = [string.replace('\r', '').replace('\n', '') for string in chosenArtists]
-
     topTracks = getTopTracksFromArtistList(chosenArtists)
-    createPlaylistFromTopTracks(topTracks)
-    return render_template('results.html', topTracks = topTracks)
+
+    playlistID = createPlaylistFromTopTracks(topTracks)
+    return render_template('results.html', playlistID=playlistID)
 
 
 

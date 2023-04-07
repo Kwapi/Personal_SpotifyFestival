@@ -87,6 +87,8 @@ def createPlaylistFromTopTracks(topTracks):
     for chunk in chunks:
         sp.user_playlist_add_tracks(user=username, playlist_id=playlist_id, tracks=chunk)
 
+    return playlist_id
+
 
 def addImagestoArtists(artists):
     client_id = '707777b94d81455eb24e4e90a99a7a8c'

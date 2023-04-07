@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
   </head>
   <body>
 
-    <h2>Choose artists for the playlist</h2>
+    <div class="container">
+
+  
+    <h1 class="title">Choose artists for the playlist</h2>
 
     <form action="/chooseArtists" method="POST" id="chooseArtists">
-        <div class="grid">
+        <div class="columns is-multiline is-mobile is-variable is-2-desktop ">
         
         {% for artist in artistsList %}
-        <div class="square">
-            <input type="checkbox" name="chosenArtists[]" value="{{artist.name}}" id="{{artist.name}}" checked >
-
-               
-                <label for="{{artist}}">
-                    <a href="#"><img src="{{ artist.image }}" alt="{{ artist.name }}"></a>
-                    {{ artist.name }}
-                </label>
-            </div>
+        <div class="column is-half-mobile is-one-quarter-desktop is-one-third-tablet">
+          <div class="image is-square">
+            <label for="{{artist.name}}">
+              <img src="{{ artist.image }}" alt="{{ artist.name }}">
+              {{ artist.name }}
+            </label>
+              <input type="checkbox" name="chosenArtists[]" value="{{artist.name}}" id="{{artist.name}}" checked >
+          </div>
+        </div>
         {% endfor %}
         </div>
         <input type="button" id="select-deselect" value="Select/Deselect All">
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Generate playlist from chosen artists" class="button is-primary">
     </form>
+  </div>
     
-
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='js/select-deselect.js') }}"></script>
