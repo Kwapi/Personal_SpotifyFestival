@@ -71,6 +71,8 @@ def createPlaylistFromTopTracks(topTracks):
     user = sp.current_user()
     username = user['id']
 
+
+
     # Create a new playlist
     playlist_name = 'Custom Opener'
     playlist_description = 'beans beans beans'
