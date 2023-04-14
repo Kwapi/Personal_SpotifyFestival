@@ -1,19 +1,79 @@
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-}
 
-.square {
-    flex-basis: 25%;
-    padding: 10px;
-}
-
-.square img {
+label.artist-name{
+    position: absolute;
+    left: 0;
     width: 100%;
-    height: auto;
+    text-align: center;
+    z-index: 1;
+    background-color: #545454;
+    color: white;
+    text-transform: uppercase;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
-.square p {
-    margin: 0;
-    text-align: center;
+.title{
+    font-weight: bold !important;
 }
+
+
+.selected label{
+        background-color: orange;
+        color: white;
+
+    
+}
+
+.image{
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.image img{
+    transition: transform 0.2s ease;
+    filter: brightness(80%) grayscale(50%)
+}
+
+.image.selected img{
+    filter: grayscale(0%) brightness(100%);
+    transform: scale(1.05);
+}
+
+
+
+
+  .logo {
+    max-height: 200px;
+    display: flex;
+    justify-content: center; /* Center child element horizontally */
+    align-items: center; /* Center child element vertically */
+    background-color: orange;
+    padding: 1rem;
+  }
+  
+  .logo svg {
+    width: 100%; /* Make the svg element fill its parent container */
+    height: auto; /* Keep aspect ratio */
+  }
+
+  .choose-artists{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #select-deselect{
+    font-weight: bold;
+  }
+  
+
+  .field{
+    text-align: center;
+  }
+
+  .padding-bottom{
+    padding-bottom: 4rem;
+  }

@@ -10,7 +10,7 @@ import spotipy
 
 
 
-def getTopTracksFromArtistList(artistList):
+def getTopTracksFromArtistList(artistList, noTracks):
 
     # TODO: set limit of tracks per artist
     # BUG: some tracks belong to wrong artists? For example wtf is Elinaura?
@@ -44,11 +44,13 @@ def getTopTracksFromArtistList(artistList):
         
              # Print the artist's top tracks
             # print(artist_name + ':')
+            
+            top_tracks = top_tracks['tracks'][:noTracks]
 
-            for track in top_tracks['tracks']:
+            for track in top_tracks:
                  allTopTracks.append(track)
         
-            ''
+            
 
         
 

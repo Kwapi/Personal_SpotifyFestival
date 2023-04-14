@@ -64,8 +64,9 @@ def artistList():
 @app.route('/chooseArtists', methods=['POST'])
 def search():
     chosenArtists = request.form.getlist('chosenArtists[]')
+    noTracks = int(request.form['noTracks'])
     cleaned_list = [string.replace('\r', '').replace('\n', '') for string in chosenArtists]
-    topTracks = getTopTracksFromArtistList(chosenArtists)
+    topTracks = getTopTracksFromArtistList(chosenArtists,noTracks)
 
     playlistID = createPlaylistFromTopTracks(topTracks)
     return render_template('results.html', playlistID=playlistID)
